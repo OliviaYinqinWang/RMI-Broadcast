@@ -1,35 +1,37 @@
 package server;
 
-import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+
+import sun.security.krb5.internal.HostAddress;
+import sun.security.util.HostnameChecker;
 
 public class Server {
 	
 	public static void main(String[] args) {
 		try {
-//			RemoteScrambble server = new RemoteScrambble();
-//			Registry registry = LocateRegistry.getRegistry();
-//			registry.bind("GameServer", server);
 			
+			
+			Registry registry = LocateRegistry.createRegistry(7777);
 			RemoteScrambble server = new RemoteScrambble();
-			Naming.rebind("GameServer", server);
+			registry.rebind("GameServer", server);
 
 			System.out.println("server ready.");
 			
-			while(true) {
-				for(int i =0; i< server.getClientList().size();i++) {
-
-				}
-			}
+			/* begin the game automatically when the online client number >2 */
+//			if (clientManager.getOnlineNum() == 2) {
+//			}
+			
+			
+			
+			
 			
 //		} catch (AlreadyBoundException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-		} catch (RemoteException | MalformedURLException e) {
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

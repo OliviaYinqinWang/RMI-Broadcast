@@ -19,15 +19,13 @@ public class Client {
 //			Registry registry = LocateRegistry.getRegistry("localhost");
 //			IRemoteScrambble server = (IRemoteScrambble) registry.lookup("GameServer");
 			
-			IRemoteScrambble GameServer = (IRemoteScrambble) Naming.lookup("rmi://localhost/GameServer");
+			Registry registry = LocateRegistry.getRegistry("175.33.221.72", 7777);
+			IRemoteScrambble GameServer = (IRemoteScrambble) registry.lookup("GameServer");
 			System.out.println("catch the stub.");
 			
 			int randomInt;
 			new Thread(new ClientGamer("client"+ String.valueOf(randomInt =1+(int)(Math.random()*50)), GameServer)).start();
 			
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (RemoteException | NotBoundException e) {
 				System.err.println(e.getMessage());
 				//e.printStackTrace();
